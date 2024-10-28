@@ -1,0 +1,723 @@
+
+{% extends 'shop/basic.html' %}
+{% block title%} Home - Food Mania{% endblock %}
+{% block css %}
+
+
+  
+  * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+  }
+  
+  body {
+      background: url(https://wallpapercave.com/wp/wp3104899.jpg) #1c1c1c center center / cover no-repeat fixed;
+      height: 200vh;
+      background-size: cover;
+  }
+  body .carousel-control-prev-icon, body .carousel-control-next-icon {
+    background-color: #ffffff00 !important;
+}
+.carousel-control-next-icon, .carousel-control-prev-icon {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  background: no-repeat 50% / 100% 100%;
+}
+.carousel-control-next-icon {
+  background-image: url(https://icon-library.com/images/next-arrow-icon/next-arrow-icon-13.jpg);
+}
+.carousel-control-prev-icon {
+  background-image: url(https://icon-library.com/images/next-arrow-icon/next-arrow-icon-13.jpg);
+  transform: rotateZ(180deg);
+}
+.card{
+  background-color: #72767285 !important;
+  backdrop-filter: blur(4px);
+  width: 16.5rem !important;
+}
+  .no-scroll-y {
+      overflow-y: hidden;
+  }
+  
+  /* Preloader */
+  .ctn-preloader {
+      align-items: center;
+    cursor: default;
+      display: flex;
+    height: 100%;
+    justify-content: center;
+      position: fixed;
+      left: 0;
+    top: 0;
+      width: 100%;
+    z-index: 900;
+  }
+  
+  .ctn-preloader .animation-preloader {
+      position: absolute;
+    z-index: 100;
+  }
+  
+  /* Spinner cargando */
+  .ctn-preloader .animation-preloader .spinner {
+    animation: spinner 1s infinite linear;
+      border-radius: 50%;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    border-top-color: #000000; /* No se identa por orden alfabetico para que no lo sobre-escriba */
+    height: 9em;
+    margin: 0 auto 3.5em auto;
+    width: 9em;
+  }
+  
+  /* Texto cargando */
+  .ctn-preloader .animation-preloader .txt-loading {
+    font: bold 5em 'Montserrat', sans-serif;
+      text-align: center;
+      user-select: none;
+  }
+  
+  .ctn-preloader .animation-preloader .txt-loading .letters-loading:before {
+    animation: letters-loading 4s infinite;
+    color: #000000;
+    content: attr(data-text-preloader);
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transform: rotateY(-90deg);
+  }
+  
+  .ctn-preloader .animation-preloader .txt-loading .letters-loading {
+      color: rgba(0, 0, 0, 0.2);
+      position: relative;
+  }
+  
+  .ctn-preloader .animation-preloader .txt-loading .letters-loading:nth-child(2):before {
+    animation-delay: 0.2s;
+  }
+  
+  .ctn-preloader .animation-preloader .txt-loading .letters-loading:nth-child(3):before {
+    animation-delay: 0.4s;
+  }
+  
+  .ctn-preloader .animation-preloader .txt-loading .letters-loading:nth-child(4):before {
+    animation-delay: 0.6s;
+  }
+  
+  .ctn-preloader .animation-preloader .txt-loading .letters-loading:nth-child(5):before {
+    animation-delay: 0.8s;
+  }
+  
+  .ctn-preloader .animation-preloader .txt-loading .letters-loading:nth-child(6):before {
+    animation-delay: 1s;
+  }
+  
+  .ctn-preloader .animation-preloader .txt-loading .letters-loading:nth-child(7):before {
+    animation-delay: 1.2s;
+  }
+  
+  .ctn-preloader .loader-section {
+    background-color: #ffffff;
+    height: 100%;
+      position: fixed;
+    top: 0;
+    width: calc(50% + 1px);
+  }
+  
+  .ctn-preloader .loader-section.section-left {
+    left: 0;
+  }
+  
+  .ctn-preloader .loader-section.section-right {
+    right: 0;
+  }
+  
+  /* Efecto de fade en la animación de cargando */
+  .loaded .animation-preloader {
+    opacity: 0;
+    transition: 0.3s ease-out;
+  }
+  
+  /* Efecto de cortina */
+  .loaded .loader-section.section-left {
+    transform: translateX(-101%);
+    transition: 0.7s 0.3s all cubic-bezier(0.1, 0.1, 0.1, 1.000);
+  }
+  
+  .loaded .loader-section.section-right {
+    transform: translateX(101%);
+    transition: 0.7s 0.3s all cubic-bezier(0.1, 0.1, 0.1, 1.000);
+  }
+  
+  /* Animación del preloader */
+  @keyframes spinner {
+      to {
+          transform: rotateZ(360deg);
+      }
+  }
+  
+  /* Animación de las letras cargando del preloader */
+  @keyframes letters-loading {
+    0%,
+    75%,
+    100% {
+        opacity: 0;
+      transform: rotateY(-90deg);
+    }
+  
+    25%,
+    50% {
+      opacity: 1;
+      transform: rotateY(0deg);
+    }
+  }
+  
+  /* Tamaño de portatil hacia atras (portatil, tablet, celular) */
+  @media screen and (max-width: 767px) {
+      /* Preloader */
+      /* Spinner cargando */	
+      .ctn-preloader .animation-preloader .spinner {
+          height: 8em;
+          width: 8em;
+      }
+  
+      /* Texto cargando */
+      .ctn-preloader .animation-preloader .txt-loading {
+        font: bold 3.5em 'Montserrat', sans-serif;
+      }
+  }
+  
+  @media screen and (max-width: 500px) {
+      /* Prelaoder */
+      /* Spinner cargando */
+      .ctn-preloader .animation-preloader .spinner {
+          height: 7em;
+          width: 7em;
+      }
+  
+      /* Texto cargando */
+      .ctn-preloader .animation-preloader .txt-loading {
+        font: bold 2em 'Montserrat', sans-serif;
+      }
+  }
+
+
+
+  :root {
+    --clr-primary: #fe5722;
+    --clr-secondary: #272d36;
+  }
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn1 {
+    padding: 14px 20px;
+    background: var(--clr-primary);
+    border-radius: 4px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 22px;
+    display: inline-block;
+    margin: 20px 0;
+}
+  .primary {
+    font-size: 64px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  .secondary {
+    font-size: 44px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  
+  .tertiary {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: white;
+  }
+
+  #hero-section {
+    background: #fff5f200;
+    {% comment %} margin-top: 60px; {% endcomment %}
+    z-index: 1;
+    position: relative;
+  }
+  
+  .text,
+  .visual {
+    width: 50%;
+  }
+  
+  .text {
+    margin: 0 20px;
+  }
+  
+  .visual img {
+    width: 80%;
+    height: auto;
+    display: block;
+  }
+  
+  #hero-section .text {
+    margin-left: 30px;
+  }
+  
+  #hero-section .visual img {
+    margin-left: auto;
+  }
+
+
+
+
+
+
+
+
+    .col-md-3
+    {
+        display: inline-block;
+        margin-left:-4px;
+    }
+    .carousel-indicators .active {
+        background-color: blue;
+    }
+    .col-md-3 img{
+        width:227px;
+        height:222px;
+    }
+    body .carousel-indicator li{
+        background-color: blue;
+    }
+    body .carousel-indicators{
+        bottom: -35px;
+    }
+    .carousel-indicators li{
+        background-color: #7270fc;
+    }
+    body .carousel-control-prev-icon,
+    body .carousel-control-next-icon{
+        background-color: blue;
+    }
+    .carousel-control-prev,
+    .carousel-control-next{
+        top:auto;
+        bottom:auto;
+        padding-top:222px;
+    }
+    body .no-padding{
+        padding-left: 0,
+        padding-right: 0;
+    }
+    div.c {
+        width: 1000px;
+        margin: 10px;
+        font-size: 20px;
+        position: relative;
+        left: 174px;
+    }
+
+
+
+
+
+    @media (max-width: 858px) { 
+      
+        #hero-section {
+          margin-top: 80px;
+        }
+      
+        #hero-section .text {
+          margin-left: auto;
+        }
+      
+        .flex {
+          flex-direction: column;
+        }
+      
+        .visual,
+        .text {
+          width: 70%;
+          margin: 15px auto;
+          text-align: center;
+        }
+      
+        .download,
+        .user {
+          flex-direction: row;
+        }
+      
+        .user {
+          justify-content: center;
+        }
+      
+        .visual img {
+          margin: 0 auto;
+        }
+      
+        .box {
+          margin: 15px 0;
+        }
+      
+        .restaurant-menu {
+          grid-template-columns: repeat(2, 1fr);
+          grid-gap: 20px;
+        }
+      
+        .faq,
+        .menu-item {
+          width: 80%;
+        }
+      
+        .primary {
+          font-size: 56px;
+        }
+      
+        .secondary {
+          font-size: 40px;
+        }
+      
+        .tertiary {
+          font-size: 20px;
+        }
+      
+        .footer-about {
+          width: 100%;
+          text-align: center;
+        }
+      
+        .quick-links,
+        .get-in-touch,
+        .footer-category {
+          display: none;
+        }
+      }
+      
+      @media (max-width: 680px) {
+      
+        .text,
+        .visual {
+          width: 90%;
+        }
+      
+        .restaurant-menu {
+          grid-template-columns: 1fr;
+        }
+      
+        .faq {
+          width: 90%;
+        }
+      
+        .app-store {
+          margin: 10px 0;
+        }
+      
+        .download {
+          flex-direction: column;
+        }
+      
+        .primary {
+          font-size: 48px;
+        }
+      
+        .secondary {
+          font-size: 32px;
+        }
+      
+        .tertiary {
+          font-size: 17px;
+        }
+      }
+      /* End Responsive  */
+      
+      
+      
+
+
+
+
+
+
+{% endblock %}
+
+  {% block body %}
+  {% load static %}
+
+<!-- Preloader -->
+
+<section>
+    <div id="preloader">
+        <div id="ctn-preloader" class="ctn-preloader">
+            <div class="animation-preloader">
+                <div class="spinner"></div>
+                <div class="txt-loading">
+                    <span data-text-preloader="L" class="letters-loading">
+                        L
+                    </span>
+                    
+                    <span data-text-preloader="O" class="letters-loading">
+                        O
+                    </span>
+                    
+                    <span data-text-preloader="A" class="letters-loading">
+                        A
+                    </span>
+                    
+                    <span data-text-preloader="D" class="letters-loading">
+                        D
+                    </span>
+                    
+                    <span data-text-preloader="I" class="letters-loading">
+                        I
+                    </span>
+                    
+                    <span data-text-preloader="N" class="letters-loading">
+                        N
+                    </span>
+                    
+                    <span data-text-preloader="G" class="letters-loading">
+                        G
+                    </span>
+                </div>
+            </div>	
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<div class="vdocontent">
+    <video autoplay loop muted playsinline id="myVideo" style="width: -webkit-fill-available; margin-top: -100px; position: absolute; z-index: -1;">
+      <source src="http://127.0.0.1:8000/media/shop/images/video.mp4" type="video/mp4">
+  </video>
+  <audio id="backgroundAudio" controls autoplay muted   style="display:none;">
+    <source src="http://127.0.0.1:8000/media/shop/images/truth.mp3" type="audio/mpeg">
+</audio> 
+    <!-- Hero Section -->
+    <div class="section flex" id="hero-section">
+        <div class="text">
+          <h1 class="primary">
+            It's Not Just Food, <br />
+            It's an <span style="color: var(--clr-primary);">Experience</span>
+          </h1>
+  
+          <p class="tertiary">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa,
+            provident dolorum. Voluptatum ducimus minima quasi unde, voluptatibus
+            soluta eligendi. Enim, architecto autem.
+          </p>
+          <a href="#Cont" class="btn1">Explore Menu</a>
+        </div>
+        <div class="visual">
+          <img src="http://127.0.0.1:8000/media/shop/images/home-banner.png" alt="" />
+        </div>
+      </div>
+  
+  
+  </div>
+
+
+
+
+
+
+<div id="Cont" class="container" style="margin-top:150px;">
+    <!--Slideshow starts here -->
+    {% for product, range, nSlides in allProds %}
+    <h3 class="my-4">{{product.0.category}}</h3>
+    <div class="row">
+        <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
+            <ul class="carousel-indicators">
+                <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
+                {% for i in range %}
+                <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}"></li>
+                {% endfor %}
+            </ul>
+            <div class="container carousel-inner no-padding">
+                <div class="carousel-item active">
+                    {% for i in product %}
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="card align-items-center" style="width: 18rem;">
+                            <img src='/media/{{i.image}}' class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title" id="namepr{{i.id}}">{{i.product_name|slice:"0:20"}}...</h5>
+                                <h6 style="color: #ff0000">Rs. <i id="pricepr{{i.id}}">{{i.price}}</i>/-</h6>
+                                <p class="card-text">{{i.desc|slice:"0:23"}}...</p>
+                                <span id="divpr{{i.id}}" class="divpr">
+                                    <button id="pr{{i.id}}" class="btn btn-primary cart">Add to Cart</button>
+                                </span>
+                                <a href="/shop/productView/{{i.id}}"> <button id="qv{{i.id}}" class="btn btn-primary cart">Quick View</button> </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                </div>
+                <div class="carousel-item">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- left and right controls for the slide -->
+        <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+{% block js %}
+<script>
+
+
+  const audio = document.getElementById('backgroundAudio');
+
+  // Try to play the audio automatically with sound
+  audio.play().then(() => {
+      console.log('Audio is playing automatically with sound.');
+  }).catch(error => {
+      console.log('Autoplay with sound was blocked. Muting the audio and retrying...', error);
+      // Fallback to muted autoplay
+      audio.muted = true;
+      audio.play();
+  });
+
+
+
+        $(document).ready(function() {
+  
+            setTimeout(function() {
+              $('#ctn-preloader').addClass('loaded');
+              $('body').removeClass('no-scroll-y');
+          
+              if ($('#ctn-preloader').hasClass('loaded')) {
+                $('#preloader').delay(2000).queue(function() {
+                  $(this).remove();
+                });
+              }
+            }, 2000);
+            
+          });
+
+
+
+
+
+
+
+// console.log({{request.user.id}});
+if (localStorage.getItem('cart') == null) {
+    var cart = {};
+    
+} else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    updateCart(cart);
+}
+
+// If the add to cart button is clicked, add/increment the item
+$('.divpr').on('click', 'button.cart', function() {
+    var idstr = this.id.toString();
+    //console.log(idstr);
+    if (cart[idstr] != undefined) {
+        qty = cart[idstr][0] + 1;
+    } else {
+        qty = 1;
+        name = document.getElementById('name'+idstr).innerHTML;
+        price = document.getElementById('price'+idstr).innerHTML;
+        cart[idstr] = [qty, name, parseInt(price)];
+    }
+    updateCart(cart);
+});
+
+
+$('#popcart').popover();
+updatePopover(cart);
+
+function updatePopover(cart) {
+    var popStr = "";
+    popStr = popStr + "<div class='mx-2 my-2'>";
+    var i = 1;
+    var j = 0;
+    for(var item in cart) {
+        popStr = popStr + "<b>" + i + "</b>. ";
+        popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 15) + "... (Qty: " + cart[item][0] + ')<br>';
+        i = i + 1;
+        j = j + 1;
+    }
+    if(j == 0) {
+        popStr = popStr + "<p><b> No item available in your cart </b></p><div class='mx-2 my-2'>";
+        popStr = popStr + "</div> <a href='/shop'><button class='btn btn-primary'>Add items</button></a> ";
+    }
+    else{
+        popStr = popStr + "</div> <a href='/shop/checkout'><button class='btn btn-primary' id='checkout'>Checkout</button></a> <a href='/shop/'><button class='btn btn-primary' onclick='clearCart()' id='clearCart'>Clear Cart</button></a>  ";
+    }
+    document.getElementById("popcart").setAttribute('data-content', popStr);
+    $('#popcart').popover();
+}
+
+function clearCart() {
+  cart = JSON.parse(localStorage.getItem('cart'));
+  for (var item in cart) {
+    document.getElementById('div' + item).innerHTML = '<button id="'+ item +'" class="btn btn-primary cart">Add to Cart</button>'
+  }
+  localStorage.clear();
+  cart = {};
+  updateCart(cart);
+}
+
+function updateCart(cart) {
+    //console.log(cart);
+    var sum = 0;
+    for (var item in cart) {
+        sum = sum + cart[item][0];
+        document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = sum;
+    updatePopover(cart);
+}
+
+$('.divpr').on("click", "button.minus", function() {
+    //console.log("minus clicked");
+    a = this.id.slice(7, );
+    cart['pr' + a][0] = cart['pr' + a][0] - 1;
+    cart['pr' + a][0] = Math.max(0, cart['pr' + a][0]);
+    if(cart['pr' + a][0] == 0) {
+        document.getElementById('divpr' + a).innerHTML = '<button id="pr'+a+'" class="btn btn-primary cart">Add to Cart</button>';
+        delete cart['pr'+a];
+    }
+    else {
+        document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+    }
+    updateCart(cart);
+
+});
+
+$('.divpr').on("click", "button.plus", function() {
+    //console.log("plus clicked");
+    a = this.id.slice(6, );
+    cart['pr' + a][0] = cart['pr' + a][0] + 1;
+    document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+    updateCart(cart);
+});
+
+document.getElementById('categoryList').innerHTML = '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a><div class="dropdown-menu" aria-labelledby="navbarDropdown" >{% for product, range, nSlides in allProds %}<a class="dropdown-item" href="/shop/search/?search={{product.0.category}}">{{product.0.category}}</a>{% endfor %}</div>';
+
+
+
+</script>
+{% endblock %}
